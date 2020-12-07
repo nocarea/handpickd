@@ -1,0 +1,14 @@
+.navbar-hp {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 160px;
+  background: $nav-grey;
+  ul {
+    list-style: none;
+  }
+  .logout-btn {
+    text-decoration: none;
+  }
+}

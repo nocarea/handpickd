@@ -33,6 +33,15 @@
 }
 .option-link {
   opacity: 0.03;
+  a {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    &:active {
+      background: white;
+    }
+  }
   &:hover {
     border: 2px solid white;
     box-shadow: 0 0 32px rgba(252, 189, 137, 0.945);

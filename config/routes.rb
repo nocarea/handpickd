@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get '/science', to: 'pages#science', as: :science
+  get '/fun', to: 'pages#fun', as: :fun
+  get '/art', to: 'pages#art', as: :art
+  get '/porn', to: 'pages#porn', as: :porn
 end
