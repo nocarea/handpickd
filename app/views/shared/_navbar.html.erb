@@ -1,10 +1,4 @@
 <div class="navbar-hp">
-  <ul>
-    <li></li>
-    <li><%= link_to "", destroy_user_session_path, class: "logout-btn" %></li>
-  </ul>
-  <%#= cl_image_tag "#{current_user.photo.key}" %>
-
-
-
+    <%#= link_to "", user_profile_path, class: "user-btn" %>
+    <%= link_to "", destroy_user_session_path, method: :delete, class: "logout-btn" %>
 </div>

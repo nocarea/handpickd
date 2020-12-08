@@ -2,8 +2,10 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home ]
 
   def home
+    add_token if current_user
   end
 
+  #use up token and redirect to chosen content
   def science
     deduct_token("science")
     if current_user.choice == "science" && current_user.ticket.today?
@@ -41,7 +43,17 @@ class PagesController < ApplicationController
   end
 
   private
+  
+  #if ticket is 1 day or more ago, add token and reset choice
+  def add_token
+    if (Time.now.to_date - current_user.ticket).to_i > 0
+      current_user.token = true
+      current_user.choice = nil
+      current_user.save
+    end
+  end
 
+  #if user has a token, remove it and add a ticket for today's choice
   def deduct_token(page)
     if current_user.token
       current_user.token = false
@@ -50,8 +62,12 @@ class PagesController < ApplicationController
       current_user.save
     end
   end
-
+  #if user has no token, redirect to home and display notice
   def denied
-    redirect_to root_path, notice: "You have no Token left. Today you chose #{current_user.choice}."
+    if current_user.choice == nil
+      redirect_to root_path, notice: "Make your choice"
+    else
+      redirect_to root_path, notice: "You chose #{current_user.choice} today. One a day you greedy cunt. "
+    end
   end  
 end
