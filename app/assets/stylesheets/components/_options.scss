@@ -31,10 +31,7 @@
   }
 }
 .option-link {
-  opacity: 0.03;
-  @media only screen and (max-width: 735px) {
-    opacity: 0.4;
-  }
+  opacity: 0.4;
   a {
     position: absolute;
     opacity: 0;

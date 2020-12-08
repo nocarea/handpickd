@@ -42,6 +42,24 @@ class PagesController < ApplicationController
     end
   end
 
+  def spirituality
+    deduct_token("spirituality")
+    if current_user.choice == "spirituality" && current_user.ticket.today?
+      @spirituality = YouTubeAddy.extract_video_id("https://www.youtube.com/watch?v=8Kh9HoCsmrw")
+    else
+      denied
+    end
+  end
+
+  def wtf
+    deduct_token("wtf")
+    if current_user.choice == "wtf" && current_user.ticket.today?
+      @wtf = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    else
+      denied
+    end
+  end
+
   private
   
   #if ticket is 1 day or more ago, add token and reset choice
