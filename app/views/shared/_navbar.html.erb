@@ -1,10 +1,25 @@
 <div class="navbar-hp">
-  <ul>
-    <li></li>
-    <li><%= link_to "", destroy_user_session_path, class: "logout-btn" %></li>
-  </ul>
-  <%#= cl_image_tag "#{current_user.photo.key}" %>
-
-
-
+    <% if current_user %>
+    <ul id="logout">
+        <li>L</li>
+        <li>O</li>
+        <li>G</li>
+        <li> </li>
+        <li>O</li>
+        <li>U</li>
+        <li>T</li>
+    </ul>
+    <%#= link_to "", user_profile_path, class: "user-btn" %>
+        <%= link_to "", destroy_user_session_path, method: :delete, class: "logout-btn" %>
+    <% else %>
+        <%= link_to "", new_user_session_path, class: "login-btn" %> 
+        <ul id="login">
+            <li>L</li>
+            <li>O</li>
+            <li>G</li>
+            <li> </li>
+            <li>I</li>
+            <li>N</li>
+        </ul>
+    <% end %>
 </div>

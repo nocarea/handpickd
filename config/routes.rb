@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get '/fun', to: 'pages#fun', as: :fun
   get '/art', to: 'pages#art', as: :art
   get '/porn', to: 'pages#porn', as: :porn
+  get '/spirituality', to: 'pages#spirituality', as: :spirituality
+  get '/wtf', to: 'pages#wtf', as: :wtf
 end
