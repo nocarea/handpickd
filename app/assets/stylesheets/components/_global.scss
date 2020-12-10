@@ -51,3 +51,12 @@
 .hidden {
   display: none;
 }
+.content {
+  width: fit-content;
+  margin-top: 200px;
+  margin-left: 44px;
+  transition: all 1s ease;
+  p {
+    color: white;
+  }
+}
