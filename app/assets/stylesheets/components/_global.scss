@@ -8,7 +8,10 @@
   width: 100%;
   text-align: left;
   margin: 0 auto;
-  background: $dark;
+  background: #221813;
+  background: -webkit-linear-gradient(top, #221813, #221813d3);
+  background: -moz-linear-gradient(top,#221813, #221813d3);
+  background: linear-gradient(to bottom,#221813, #221813d3);
   text-shadow: -1px -2px rgba(0, 0, 0, 0.9);
   transition: all 1.7s ease-out;
   @media only screen and (max-width: 735px) {
@@ -36,6 +39,7 @@
     margin-bottom: 10px;
     @media only screen and (max-width: 735px) {
       display: none;
+
     }
   }
 }
@@ -56,6 +60,11 @@
   margin-top: 200px;
   margin-left: 44px;
   transition: all 1s ease;
+  @media only screen and (max-width: 735px) {
+    width: 300px;
+    margin-left: 12px;
+    margin-top: 130px;
+  }
   p {
     color: white;
   }
