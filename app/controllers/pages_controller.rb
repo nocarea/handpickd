@@ -8,8 +8,9 @@ class PagesController < ApplicationController
   #use up token and redirect to chosen content
   def science
     deduct_token("science")
-    if current_user.choice == "science" && current_user.ticket.today?
-      @science = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    if current_user.category == "science" && current_user.ticket.today?
+      set_content("science")
+      set_comments(@content.id)
     else
       denied
     end
@@ -17,8 +18,9 @@ class PagesController < ApplicationController
 
   def fun
     deduct_token("fun")
-    if current_user.choice == "fun" && current_user.ticket.today?
-      @fun = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    if current_user.category == "fun" && current_user.ticket.today?
+      set_content("fun")
+      set_comments(@content.id)
     else
       denied
     end
@@ -26,8 +28,9 @@ class PagesController < ApplicationController
 
   def art
     deduct_token("art")
-    if current_user.choice == "art" && current_user.ticket.today?
-      @art = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    if current_user.category == "art" && current_user.ticket.today?
+      set_content("art")
+      set_comments(@content.id)
     else
       denied
     end
@@ -35,17 +38,19 @@ class PagesController < ApplicationController
 
   def porn
     deduct_token("porn")
-    if current_user.choice == "porn" && current_user.ticket.today?
-      @porn = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    if current_user.category == "porn" && current_user.ticket.today?
+      set_content("porn")
+      set_comments(@content.id)
     else
       denied
     end
   end
 
-  def spirituality
-    deduct_token("spirituality")
-    if current_user.choice == "spirituality" && current_user.ticket.today?
-      @spirituality = YouTubeAddy.extract_video_id("https://www.youtube.com/watch?v=8Kh9HoCsmrw")
+  def spirit
+    deduct_token("spirit")
+    if current_user.category == "spirit" && current_user.ticket.today?
+      set_content("spirit")
+      set_comments(@content.id)
     else
       denied
     end
@@ -53,8 +58,9 @@ class PagesController < ApplicationController
 
   def wtf
     deduct_token("wtf")
-    if current_user.choice == "wtf" && current_user.ticket.today?
-      @wtf = "https://www.youtube.com/watch?v=8Kh9HoCsmrw"
+    if current_user.category == "wtf" && current_user.ticket.today?
+      set_content("wtf")
+      set_comments(@content.id)
     else
       denied
     end
@@ -62,30 +68,54 @@ class PagesController < ApplicationController
 
   private
   
-  #if ticket is 1 day or more ago, add token and reset choice
+  #if ticket is 1 day or more ago, add token and reset category
   def add_token
     if (Time.now.to_date - current_user.ticket).to_i > 0
       current_user.token = true
-      current_user.choice = nil
+      current_user.category = nil
       current_user.save
     end
   end
 
-  #if user has a token, remove it and add a ticket for today's choice
+  #if user has a token, remove it and add a ticket for today's category
   def deduct_token(page)
     if current_user.token
       current_user.token = false
       current_user.ticket = Time.now.to_date
-      current_user.choice = page
+      current_user.category = page
       current_user.save
     end
   end
   #if user has no token, redirect to home and display notice
   def denied
-    if current_user.choice == nil
+    if current_user.category == nil
+      redirect_to root_path, notice: "Make your choice"
+    elsif current_user.category && !current_user.ticket.today?
       redirect_to root_path, notice: "Make your choice"
     else
       redirect_to root_path, notice: "You chose #{current_user.choice} today. One a day you greedy cunt. "
     end
-  end  
+  end
+
+  def set_content(category)
+    #do the following only once a day
+    #select the content container of that category
+    category_content = Content.where(category: category)
+    #returns hash/array? of Content instances
+    #remove content the user has already seen from the array
+    category_content.each do |content|
+      content.user_id 
+
+reject(:user_id == current_user.id)
+    seen.each do |id|
+      category_content = category_content.reject!(|content| content.id == id)
+    end
+    #select a new random content from the container
+    @content = seen.sample
+    #add user id to content
+  end
+
+  def set_comments(id)
+    @comments = Comment.where(content_id: id)
+  end
 end

@@ -60,6 +60,8 @@
     </div>
   </div>
     <div class="content">
-      <%= link_to "" %>
+    <% if current_user && current_user.ticket.today? %>
+      <%#= render 'content', object: @content %>
+    <% end %>
     </div>
 </div>

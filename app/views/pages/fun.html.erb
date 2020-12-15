@@ -1,1 +1,10 @@
 <h1>fun</h1>
+
+<%= image_tag @content, id: "content" %>
+<div class="comments">
+  <%= form_for @comments %>
+    <%= f.input :name %>
+    <%= f.input :comment, as: :text %>
+    <%= f.submit %>
+  <% end %>
+</div>
