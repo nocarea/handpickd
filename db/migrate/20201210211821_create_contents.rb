@@ -4,6 +4,7 @@ class CreateContents < ActiveRecord::Migration[6.0]
       t.string :category
       t.string :url
 
+      t.references :users
       t.timestamps
     end
   end
